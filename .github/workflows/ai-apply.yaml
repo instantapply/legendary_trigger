@@ -1,4 +1,4 @@
-name: CI Build 1 (macOS)
+name: run-selenium-job
 
 on:
   repository_dispatch:
