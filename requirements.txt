@@ -1,2 +1,6 @@
-selenium>=4.0.0
-urllib3>=2.0.0
+seleniumbase>=4.37.6
+nodriver
+pyvirtualdisplay
+pdbp
+tabcompleter
+sbvirtualdisplay
