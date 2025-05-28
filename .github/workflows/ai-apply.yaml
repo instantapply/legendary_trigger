@@ -27,7 +27,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Print Message
-        run: echo "Message received: $MESSAGE_FROM_SQS"
+        run: |
+          echo "📨 Message from SQS: ${{ env.MESSAGE_FROM_SQS }}"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
