@@ -7,12 +7,13 @@ on:
 jobs:
   build:
     env:
+      MESSAGE_FROM_SQS: ${{ github.event.client_payload.message }}
       PY_COLORS: "1"
     strategy:
       fail-fast: false
-      max-parallel: 10
+      max-parallel: 1
       matrix:
-        run_id: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        run_id: [1]
         os: [macos-latest]
         python-version: ["3.11"]
 
@@ -25,7 +26,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-
+      - name: Print Message
+        run: echo "Message received: $MESSAGE_FROM_SQS"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
