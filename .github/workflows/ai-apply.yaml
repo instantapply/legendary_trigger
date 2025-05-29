@@ -46,7 +46,9 @@ jobs:
         run: |
           seleniumbase
           sbase
-
+      - name: Get current path
+        run : |
+          pwd
       - name: Install chromedriver and edgedriver
         run: |
           seleniumbase install chromedriver
