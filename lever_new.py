@@ -9,6 +9,14 @@ import time
 message = os.environ.get('MESSAGE_FROM_SQS')
 message = json.loads(message)
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    stream=sys.stdout
+)
+logger = logging.getLogger(__name__)
+
 def download_resume(resume_url):
     import requests
     response = requests.get(resume_url)
