@@ -62,11 +62,11 @@ jobs:
           echo "import os; print(os.cpu_count())" > get_cpu_count.py
           python get_cpu_count.py
 
-      - name: Copy resume files
-        run: |
-          sudo mkdir -p $HOME/app
-          echo $HOME
-          sudo cp resume.pdf $HOME/app/resume.pdf
+      # - name: Copy resume files
+      #   run: |
+      #     sudo mkdir -p $HOME/app
+      #     echo $HOME
+      #     sudo cp resume.pdf $HOME/app/resume.pdf
 
       - name: Run seleniumbase script - Run #${{ matrix.run_id }}
         run: |
