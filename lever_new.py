@@ -22,11 +22,13 @@ with SB(uc=True, test=True, locale="en") as sb:
     url = j.get("application_url","")
     print("Application started successfully!")
     sb.activate_cdp_mode(url)
+    print ("cdp mode activated")
     download_resume(j.get("user",{}).get("resumeData",{}).get("resumeUrl",""))
     sb.sleep(5)
+    print ("resume downloaded successfully")
     sb.cdp.find_element('[id="resume-upload-input"]', best_match=False, timeout=10).send_file('resume.pdf')
     sb.sleep(10)
-    
+    print ("resume uploaded successfully")
     #company
     sb.cdp.find_element('[name="org"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("resumeData",{}).get("workExperience",[])[0].get("company","") or "NA") 
     
@@ -35,23 +37,26 @@ with SB(uc=True, test=True, locale="en") as sb:
     sb.cdp.find_element('[name="urls[Portfolio]"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("personalDetails",{}).get("portfolio","NA") or "NA" ) 
     sb.cdp.find_element('[name="urls[GitHub]"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("personalDetails",{}).get("github","NA") or "NA") 
     sb.cdp.find_element('[name="urls[Stack Overflow]"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("personalDetails",{}).get("other","NA") or "NA" ) 
-  
+
+    print ("social links")
     # questions_answers
     for q in j.get("application_questions",[]):
         if q.get("type","") == "text":
           sb.cdp.find_element(f'[name="{q.get("selector","")}"]', best_match=False, timeout=10).send_keys(q.get("answer","NA") or "NA")
         elif q.get("type","") == "select":
           pass
-
+    print ("questions")
     # cover letter
     sb.cdp.find_element('[name="comments"]', best_match=False, timeout=10).send_keys(j.get("cover_letter","").replace("\n","\n\n") ) 
   
     sb.sleep(10)
+
+    print ("coverletter")
     
     sb.cdp.find_element('[id="btn-submit"]', best_match=False, timeout=10).mouse_click()
 
     sb.sleep(10)
-
+    print ("submitted")
     sb.cdp.find_element('[data-qa="msg-submit-success"]', best_match=False, timeout=10)
 
     print("Application process completed successfully!")
