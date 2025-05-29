@@ -58,6 +58,8 @@ with SB(uc=True, test=True, locale="en") as sb:
     sb.sleep(10)
 
     sb.cdp.find_element('[data-qa="msg-submit-success"]', best_match=False, timeout=10)
+
+    logger.info("Application process completed successfully!")
   # [data-qa="msg-submit-success"]
     # sb.cdp.save_screenshot('abc1.png', folder=None, selector=None)
     # sb.cdp.find_element('[data-ui="lastname"]', best_match=False, timeout=10).send_keys('Narsingarh wala')
