@@ -31,7 +31,7 @@ with SB(uc=True, test=True, locale="en") as sb:
     print ("resume uploaded successfully")
     #company
     sb.cdp.find_element('[name="org"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("resumeData",{}).get("workExperience",[])[0].get("company","") or "NA") 
-    
+    print ("company filled")
     #social links
     sb.cdp.find_element('[name="urls[LinkedIn]"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("personalDetails",{}).get("linkedin","") or "NA") 
     sb.cdp.find_element('[name="urls[Portfolio]"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("personalDetails",{}).get("portfolio","NA") or "NA" ) 
