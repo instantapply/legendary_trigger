@@ -10,12 +10,6 @@ message = os.environ.get('MESSAGE_FROM_SQS')
 message = json.loads(message)
 
 # Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    stream=sys.stdout
-)
-logger = logging.getLogger(__name__)
 
 def download_resume(resume_url):
     import requests
@@ -26,6 +20,7 @@ def download_resume(resume_url):
 with SB(uc=True, test=True, locale="en") as sb:
     j = message
     url = j.get("application_url","")
+    print("Application started successfully!")
     sb.activate_cdp_mode(url)
     download_resume(j.get("user",{}).get("resumeData",{}).get("resumeUrl",""))
     sb.sleep(5)
@@ -59,7 +54,7 @@ with SB(uc=True, test=True, locale="en") as sb:
 
     sb.cdp.find_element('[data-qa="msg-submit-success"]', best_match=False, timeout=10)
 
-    logger.info("Application process completed successfully!")
+    print("Application process completed successfully!")
   # [data-qa="msg-submit-success"]
     # sb.cdp.save_screenshot('abc1.png', folder=None, selector=None)
     # sb.cdp.find_element('[data-ui="lastname"]', best_match=False, timeout=10).send_keys('Narsingarh wala')
