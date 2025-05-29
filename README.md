@@ -1,1 +1,1 @@
-# sqs-lambda-github-trigger
+# legendary-trigger
