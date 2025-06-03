@@ -73,7 +73,7 @@ jobs:
       - name: Run seleniumbase script - Run #${{ matrix.run_id }}
         run: |
           echo "Running instance #${{ matrix.run_id }}"
-          python lever_new.py --headless
+          python lever_new.py --headless --proxy=e0af20643b6fe7cb3530:da23d666a6336983@gw.dataimpulse.com:823
 
       - name: Upload screenshots as artifacts
         if: always()
