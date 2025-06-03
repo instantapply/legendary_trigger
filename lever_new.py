@@ -56,7 +56,8 @@ with SB(uc=True, test=True, locale="en") as sb:
 
     print ("coverletter")
     sb.cdp.scroll_into_view('[id="btn-submit"]')
-    sb.cdp.find_element('[id="btn-submit"]', best_match=False, timeout=10).mouse_click()
+    # sb.cdp.find_element('[id="btn-submit"]', best_match=False, timeout=10).mouse_click()
+    sb.cdp.gui_click_element('[id="btn-submit"]')
 
     sb.sleep(10)
     print ("submitted")
