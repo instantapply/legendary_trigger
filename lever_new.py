@@ -36,8 +36,11 @@ with SB(uc=True, test=True, locale="en") as sb:
     sb.cdp.find_element('[name="urls[LinkedIn]"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("personalDetails",{}).get("linkedin","") or "NA") 
     sb.cdp.find_element('[name="urls[Portfolio]"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("personalDetails",{}).get("portfolio","NA") or "NA" ) 
     sb.cdp.find_element('[name="urls[GitHub]"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("personalDetails",{}).get("github","NA") or "NA") 
-    sb.cdp.find_element('[name="urls[Stack Overflow]"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("personalDetails",{}).get("other","NA") or "NA" ) 
-
+    try:
+        sb.cdp.find_element('[name="urls[Stack Overflow]"]', best_match=False, timeout=10).send_keys(j.get("user",{}).get("personalDetails",{}).get("other","NA") or "NA" ) 
+    except:
+      pass
+    
     print ("social links")
     # questions_answers
     for q in j.get("application_questions",[]):
@@ -52,7 +55,7 @@ with SB(uc=True, test=True, locale="en") as sb:
     sb.sleep(10)
 
     print ("coverletter")
-    
+    sb.cdp.scroll_into_view('[id="btn-submit"]')
     sb.cdp.find_element('[id="btn-submit"]', best_match=False, timeout=10).mouse_click()
 
     sb.sleep(10)
