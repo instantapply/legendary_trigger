@@ -54,6 +54,7 @@ with SB(uc=True, locale="en") as sb:
 
     sb.sleep(10)
     print ("submitted")
+    sb.cdp.save_screenshot('abc.png')
     sb.cdp.find_element('[data-qa="msg-submit-success"]', best_match=False, timeout=10)
 
     print("Application process completed successfully!")
