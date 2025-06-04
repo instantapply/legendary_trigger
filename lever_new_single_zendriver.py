@@ -14,13 +14,55 @@ def download_resume(resume_url):
     response = requests.get(resume_url)
     with open("/Users/runner/work/legendary_trigger/legendary_trigger/resume.pdf", "wb") as f:
         f.write(response.content)
+from zendriver.cdp import fetch
+
+PROXYHOST = "gw.dataimpulse.com"
+PROXYPORT = "823"
+PROXYUSERNAME = "e0af20643b6fe7cb3530"
+PROXYPASSWORD = "da23d666a6336983"
+PROXY = f"http://{PROXYHOST}:{PROXYPORT}"
+
+async def setup_proxy(username, password, tab):
+    async def auth_challenge_handler(event: fetch.AuthRequired):
+        # Respond to the authentication challenge
+        await tab.send(
+            fetch.continue_with_auth(
+                request_id=event.request_id,
+                auth_challenge_response=fetch.AuthChallengeResponse(
+                    response="ProvideCredentials",
+                    username=username,
+                    password=password,
+                ),
+            )
+        )
+
+    async def req_paused(event: fetch.RequestPaused):
+        # Continue with the request
+        await tab.send(fetch.continue_request(request_id=event.request_id))
+
+    # Add handlers for fetch events
+    tab.add_handler(
+        fetch.RequestPaused, lambda event: asyncio.create_task(req_paused(event))
+    )
+    tab.add_handler(
+        fetch.AuthRequired,
+        lambda event: asyncio.create_task(auth_challenge_handler(event)),
+    )
+
+    # Enable fetch domain with auth requests handling
+    await tab.send(fetch.enable(handle_auth_requests=True))
 
 async def main():
 
     # browser_args = ['--disable-web-security','--disable-site-isolation-trials']
     j = message
     url = j.get("application_url","")
-    browser = await zd.start()
+    # browser = await zd.start()
+    # page = await browser.get(url)
+
+    browser = await zd.start(browser_args=[f"--proxy-server={PROXY}"])
+    page = await browser.get("https://httpbin.io/ip")
+    await setup_proxy(PROXYUSERNAME, PROXYPASSWORD, page)
     page = await browser.get(url)
 
 
