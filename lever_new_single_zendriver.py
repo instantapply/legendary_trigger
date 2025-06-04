@@ -12,7 +12,7 @@ message = {"ats_name": "lever", "job_summary": "\ud83d\udc4b Greetings, future t
 def download_resume(resume_url):
     import requests
     response = requests.get(resume_url)
-    with open("/Users/talib/resume.pdf", "wb") as f:
+    with open("/Users/runner/work/legendary_trigger/legendary_trigger/resume.pdf", "wb") as f:
         f.write(response.content)
 
 async def main():
@@ -33,7 +33,7 @@ async def main():
     download_resume(j.get("user",{}).get("resumeData",{}).get("resumeUrl",""))
     await asyncio.sleep(10)
     ele = await page.find('[id="resume-upload-input"]')
-    await ele.send_file('/Users/talib/resume.pdf')
+    await ele.send_file('/Users/runner/work/legendary_trigger/legendary_trigger/resume.pdf')
 
     await asyncio.sleep(20)
 
