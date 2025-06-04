@@ -3,6 +3,7 @@ name: run-selenium-job
 on:
   repository_dispatch:
     types: [run-selenium-job]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -73,7 +74,7 @@ jobs:
       - name: Run seleniumbase script - Run #${{ matrix.run_id }}
         run: |
           echo "Running instance #${{ matrix.run_id }}"
-          python lever_new.py --headed
+          python lever_new_single.py --headed
 
       - name: Upload screenshots as artifacts
         if: always()
