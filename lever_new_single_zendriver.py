@@ -44,6 +44,8 @@ async def main():
     await ele.scroll_into_view()
     await ele.click()
     await asyncio.sleep(10)
+    await page.save_screenshot(filename='abc', format='jpeg', full_page=True)[source]
+
     ele = await page.find('[data-qa="msg-submit-success"]')
     # await ele.click()
     # await asyncio.sleep(10)
