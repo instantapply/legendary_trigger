@@ -82,4 +82,4 @@ jobs:
         with:
           name: screenshots-run-${{ matrix.run_id }}
           path: |
-            abc*.png
+            abc*.jpeg
