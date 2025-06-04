@@ -26,6 +26,7 @@ with SB(uc=True, test=True, locale="en") as sb:
     download_resume(j.get("user",{}).get("resumeData",{}).get("resumeUrl",""))
     sb.sleep(5)
     print ("resume downloaded successfully")
+    sb.cdp.save_screenshot('abc1.png')
     sb.cdp.find_element('[id="resume-upload-input"]', best_match=False, timeout=10).send_file('/Users/runner/work/legendary_trigger/legendary_trigger/resume.pdf')
     sb.sleep(10)
     print ("resume uploaded successfully")
